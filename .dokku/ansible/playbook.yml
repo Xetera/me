@@ -1,0 +1,59 @@
+---
+- hosts: all
+  roles:
+    - role: dokku_bot.ansible_dokku
+  vars:
+    dokku_plugins:
+      - name: pnpm
+        url: https://github.com/unfold/heroku-buildpack-pnpm
+    container_mount_path: "/store"
+    backup_path: "/home/dokku/backup/{{ app }}-db"
+    host_mount_path: "/var/lib/dokku/data/storage/{{ app }}"
+  tasks:
+    - name: Create app
+      dokku_app:
+        app: "{{ app }}"
+    - name: Set to use caddy
+      ansible.builtin.shell:
+        # sadly there's no ansible command for this
+        cmd: "dokku proxy:set {{ app }} caddy"
+    - name: Template app configuration
+      ansible.builtin.template:
+        src: "app.json.j2"
+        dest: "app.json"
+        owner: dokku
+        group: dokku
+    - name: Setting domains
+      dokku_domains:
+        app: "{{ app }}"
+        domains:
+          - me.xetera.dev
+    - name: Setting config
+      dokku_config:
+        app: "{{ app }}"
+        config:
+          # These are relative to the container
+          DATABASE_URL: "file:{{ container_mount_path }}/prod.db"
+          CONFIG_PATH: "{{ container_mount_path }}/config.toml"
+    - name: Check storage path
+      stat:
+        path: "{{ host_mount_path }}"
+      register: storage_path
+    - name: Creating persistent storage folder
+      file:
+        path: "{{ host_mount_path }}"
+        state: directory
+        owner: dokku
+        group: dokku
+        mode: 0755
+      when: not storage_path.stat.exists
+    - name: Copy configuration
+      ansible.builtin.copy:
+        src: config.toml.enc
+        dest: "{{ host_mount_path }}/config.toml"
+        remote_src: false
+    - name: Linking dokku storage
+      dokku_storage:
+        app: "{{ app }}"
+        mounts:
+          - "{{ host_mount_path }}:{{ container_mount_path }}"

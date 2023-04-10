@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id               Int            @id @default(autoincrement())
+  // more than one author possible but we only care about one
+  author           String
+  title            String
+  // 'AMAZON'
+  provider         String
+  providerId       String         @map("provider_id")
+  recordedProgress BookProgress[]
+  coverUrl         String         @map("cover_url")
+  seenAt           DateTime       @default(now()) @map("seen_at")
+
+  @@unique([provider, providerId], name: "providerKey")
+  @@map("book")
+}
+
+model BookProgress {
+  id       Int      @id @default(autoincrement())
+  bookId   Int      @map("book_id")
+  book     Book     @relation(fields: [bookId], references: [id])
+  progress Float
+  device   String?
+  seenAt   DateTime @default(now()) @map("seen_at")
+  syncDate DateTime @map("sync_date")
+
+  @@map("book_progress")
+}
+
+model Song {
+  id           Int       @id @default(autoincrement())
+  durationMs   Int       @map("duration_ms")
+  providerLink String?   @map("provider_link")
+  provider     String
+  providerId   String    @map("provider_id")
+  title        String
+  artist       String
+  album        String
+  coverUrl     String    @map("cover_url")
+  previewUrl   String?   @map("preview_url")
+  likedAt      DateTime? @default(now()) @map("liked_at")
+
+  @@unique([provider, providerId], name: "providerKey")
+  @@map("song")
+}

@@ -1,0 +1,11 @@
+[kindle]
+enabled = false
+deviceToken = "..."
+cookies = "..."
+
+[spotify]
+enabled = false
+clientId = "..."
+clientSecret = "..."
+refreshToken = "..."
+redirectUri = "..."

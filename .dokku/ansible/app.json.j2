@@ -1,0 +1,6 @@
+{
+  "cron": [{
+    "command": "restic backup {{ host_mount_path }}/prod.db -r {{ backup_path }}",
+    "schedule": "@daily"
+  }]
+}
