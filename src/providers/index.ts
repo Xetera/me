@@ -11,7 +11,7 @@ export type Context = {
 	httpClient: CycleTLSClient;
 };
 
-export interface Provider {
+export interface Provider<T> {
 	/**
 	 * this name will be used for identifying the provider in the api response
 	 */
@@ -19,7 +19,11 @@ export interface Provider {
 	schedule: CronExpression;
 	debug?: boolean;
 	run(ctx: Readonly<Context>): Promise<unknown>;
-	queryLatest(ctx: Readonly<Context>): Promise<object>;
+	queryLatest(ctx: Readonly<Context>): Promise<T>;
+}
+
+export function makeProvider<T>(p: Provider<T>): Provider<T> {
+	return p;
 }
 
 export const providers = {

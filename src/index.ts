@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 async function main(configPath: string) {
 	const httpClient = await initClient();
 	const config = readConfig(configPath);
-	const ctx: Readonly<Context> = Object.freeze({ prisma, config, httpClient });
+	const ctx: Readonly<Context> = { prisma, config, httpClient };
 
 	const jobs = startJobs(ctx, providers);
 	await startServer(ctx, jobs);

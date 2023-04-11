@@ -1,4 +1,4 @@
-import { Provider } from ".";
+import { makeProvider, Provider } from "./index.js";
 import { z } from "zod";
 import { cron } from "../cron.js";
 import type { PlaylistTrack, Track } from "spotify-types";
@@ -13,7 +13,7 @@ export const SpotifyConfig = z.object({
 
 export type SpotifyConfig = z.infer<typeof SpotifyConfig>;
 
-const spotifyLikedProvider: Provider = {
+const spotifyLikedProvider = makeProvider({
 	name: "spotify.liked",
 	schedule: cron("0 */12 * * *"),
 	async run({ config, prisma }) {
@@ -43,7 +43,7 @@ const spotifyLikedProvider: Provider = {
 			body: params.toString(),
 		});
 
-		const body = await response.json();
+		const body = (await response.json()) as any;
 		if (!response.ok) {
 			console.log("Spotify fetcher response was not ok", response.status);
 			console.log(body);
@@ -59,12 +59,9 @@ const spotifyLikedProvider: Provider = {
 		const token = body.access_token;
 
 		console.log("[spotify] fetching liked tracks");
-		const likedTracks: { items: PlaylistTrack[] } = await fetch(
-			"https://api.spotify.com/v1/me/tracks",
-			{
-				headers: { authorization: `Bearer ${token}` },
-			},
-		).then((res) => res.json());
+		const likedTracks = (await fetch("https://api.spotify.com/v1/me/tracks", {
+			headers: { authorization: `Bearer ${token}` },
+		}).then((res) => res.json())) as { items: PlaylistTrack[] };
 
 		for (const song of likedTracks.items) {
 			const track = song.track as Track;
@@ -105,16 +102,19 @@ const spotifyLikedProvider: Provider = {
 		});
 		return songs.map((song) => {
 			return {
-				title: song.title,
-				artist: song.artist,
-				album: song.album,
-				coverUrl: song.coverUrl,
 				likedAt: song.likedAt,
-				durationMs: song.durationMs,
-				previewUrl: song.previewUrl,
+				song: {
+					title: song.title,
+					artist: song.artist,
+					album: song.album,
+					coverUrl: song.coverUrl,
+					durationMs: song.durationMs,
+					spotifyUrl: song.providerLink,
+					previewUrl: song.previewUrl,
+				},
 			};
 		});
 	},
-};
+});
 
 export default spotifyLikedProvider;

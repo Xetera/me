@@ -1,8 +1,9 @@
 import { Kindle } from "kindle-api";
 import { setTimeout as sleep } from "timers/promises";
-import type { Provider } from "./index.js";
+import { makeProvider, Provider } from "./index.js";
 import { cron } from "../cron.js";
 import { z } from "zod";
+import { objectType } from "nexus";
 
 export const KindleConfig = z.object({
 	enabled: z.boolean().default(false),
@@ -12,7 +13,7 @@ export const KindleConfig = z.object({
 
 export type KindleConfig = z.infer<typeof KindleConfig>;
 
-const kindleProvider: Provider = {
+const kindleProvider = makeProvider({
 	name: "kindle",
 	// cron expression for every 12 hours
 	schedule: cron("0 */12 * * *"),
@@ -114,7 +115,7 @@ const kindleProvider: Provider = {
 			})
 			.filter(Boolean);
 	},
-};
+});
 
 const possessiveRegex = /\b.+?'.+?\b/;
 

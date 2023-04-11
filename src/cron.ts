@@ -29,7 +29,7 @@ export type Task = {
 
 export function startJobs(
 	ctx: Readonly<Context>,
-	providers: Record<string, Provider>,
+	providers: Record<string, Provider<unknown>>,
 ): Task[] {
 	return Object.values(providers).map((provider) => {
 		console.log("[scheduler] Creating provider", provider.name);
