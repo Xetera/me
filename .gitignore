@@ -2,3 +2,4 @@ config.toml
 node_modules
 prisma/dev.db
 dist
+.idea

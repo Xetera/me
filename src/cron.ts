@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { CronJob } from "cron";
-import type { Context, Provider } from "./providers";
+import type { Context, Provider } from "📁/index.js";
 
 const CronExpression = z.string().brand("cron");
 

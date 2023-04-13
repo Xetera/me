@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { CycleTLSClient } from "cycletls";
-import { Config } from "../config.js";
-import { CronExpression } from "../cron.js";
-import kindleProvider from "./kindle.js";
-import spotifyLikedProvider from "./spotify.js";
+import { Config } from "🌳/config.js";
+import { CronExpression } from "🌳/cron.js";
+import kindleProvider from "📁/kindle/kindle-provider.js";
+import spotifyLikedProvider from "📁/spotify/spotify-provider.js";
 
 export type Context = {
 	prisma: PrismaClient;

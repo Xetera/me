@@ -63,7 +63,7 @@ type Song {
   previewUrl: String
 
   """Spotify URL of the song"""
-  spotifyUrl: String!
+  spotifyUrl: String
 
   """Title of the song"""
   title: String!

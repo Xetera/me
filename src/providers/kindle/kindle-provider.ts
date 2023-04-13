@@ -1,17 +1,7 @@
 import { Kindle } from "kindle-api";
-import { setTimeout as sleep } from "timers/promises";
-import { makeProvider, Provider } from "./index.js";
-import { cron } from "../cron.js";
-import { z } from "zod";
-import { objectType } from "nexus";
-
-export const KindleConfig = z.object({
-	enabled: z.boolean().default(false),
-	deviceToken: z.string(),
-	cookies: z.string(),
-});
-
-export type KindleConfig = z.infer<typeof KindleConfig>;
+import { makeProvider } from "📁/index.js";
+import { cron } from "🌳/cron.js";
+import { authorName, iterBooks } from "./api";
 
 const kindleProvider = makeProvider({
 	name: "kindle",
@@ -25,17 +15,15 @@ const kindleProvider = makeProvider({
 		});
 
 		// Very rudimentary
-		for (const book of kindle.defaultBooks) {
-			const [authorObj] = book.authors;
-			const author = authorObj
-				? `${authorObj.firstName} ${authorObj.lastName}`
-				: "[unknown]";
+		for await (const book of iterBooks(kindle)) {
+			const progress = parseFloat(book.percentageRead.toFixed(1));
+			const author = authorName(book.authors);
 
 			const data = {
 				provider: "AMAZON",
 				providerId: book.asin,
 				title: book.title,
-				coverUrl: book.imageUrl,
+				coverUrl: book.productUrl,
 				author: author,
 			};
 
@@ -51,18 +39,6 @@ const kindleProvider = makeProvider({
 				update: data,
 				create: data,
 			});
-			// idk if it helps but I don't like waiting
-			await sleep(200);
-
-			const lightDetails = await book.details();
-			const isUnread = lightDetails.progress.position === -1;
-
-			if (isUnread) {
-				continue;
-			}
-
-			const details = await book.fullDetails(lightDetails);
-			const progress = parseFloat(details.percentageRead.toFixed(1));
 
 			await prisma.bookProgress.create({
 				data: {
@@ -72,8 +48,8 @@ const kindleProvider = makeProvider({
 							providerKey,
 						},
 					},
-					device: details.progress.reportedOnDevice,
-					syncDate: details.progress.syncDate,
+					device: book.progress.reportedOnDevice,
+					syncDate: book.progress.syncDate,
 					seenAt: new Date(),
 				},
 			});

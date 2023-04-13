@@ -1,8 +1,8 @@
 import { parse as parseToml } from "toml";
 import fs from "fs";
 import { z } from "zod";
-import { SpotifyConfig } from "./providers/spotify.js";
-import { KindleConfig } from "./providers/kindle.js";
+import { SpotifyConfig } from "📁/spotify/config.js";
+import { KindleConfig } from "📁/kindle/config.js";
 
 export const Config = z.object({
 	spotify: SpotifyConfig,

@@ -65,7 +65,7 @@ export interface NexusGenObjects {
     coverUrl: string; // String!
     durationMs: number; // Int!
     previewUrl?: string | null; // String
-    spotifyUrl: string; // String!
+    spotifyUrl?: string | null; // String
     title: string; // String!
   }
 }
@@ -105,7 +105,7 @@ export interface NexusGenFieldTypes {
     coverUrl: string; // String!
     durationMs: number; // Int!
     previewUrl: string | null; // String
-    spotifyUrl: string; // String!
+    spotifyUrl: string | null; // String
     title: string; // String!
   }
 }

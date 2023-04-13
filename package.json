@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pnpm run typegen & tsc",
     "migrate": "prisma migrate deploy",
-    "dev": "ts-node --esm ./src/index.ts",
+    "dev": "nodemon --exec ts-node-esm -r tsconfig-paths/register src/index.ts",
     "typegen": "prisma generate & ts-node --transpileOnly --esm ./src/index.ts",
     "start": "node dist/index.js",
     "encrypt": "ansible-vault encrypt ./config.toml --output .dokku/ansible/config.toml.enc"
@@ -17,8 +17,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@total-typescript/ts-reset": "^0.4.2",
     "@types/cron": "^2.0.1",
     "@types/node": "^18.15.11",
+    "tsx": "^3.12.6",
+    "spotify-types": "^1.0.7",
     "typescript": "^5.0.4"
   },
   "engines": {
@@ -26,21 +29,16 @@
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
-    "@total-typescript/ts-reset": "^0.4.2",
-    "altair-fastify-plugin": "^5.0.22",
     "cron": "^2.3.0",
     "cycletls": "^1.0.21",
     "fastify": "^4.15.0",
     "graphql": "^16.6.0",
-    "graphql-iso-date": "^3.6.1",
     "graphql-scalars": "^1.21.3",
     "kindle-api": "^0.2.6",
     "mercurius": "^12.2.0",
     "nexus": "^1.3.0",
     "prisma": "^4.12.0",
-    "spotify-types": "^1.0.7",
     "toml": "^3.0.0",
-    "ts-node": "^10.9.1",
     "zod": "^3.21.4"
   }
 }

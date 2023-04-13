@@ -1,14 +1,12 @@
 import {
 	makeSchema,
 	list,
-	nonNull,
-	intArg,
 	objectType,
 	asNexusMethod,
 } from "nexus";
 import * as url from "url";
 import path from "path";
-import { providers } from "./providers/index.js";
+import { providers } from "📁/index.js";
 import { GraphQLDateTime } from "graphql-scalars";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -30,7 +28,7 @@ const Song = objectType({
 		t.nonNull.string("coverUrl", {
 			description: "Album art of the song",
 		});
-		t.nonNull.string("spotifyUrl", {
+		t.string("spotifyUrl", {
 			description: "Spotify URL of the song",
 		});
 		t.nonNull.int("durationMs", {

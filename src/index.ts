@@ -1,6 +1,6 @@
 import initClient from "cycletls";
 import { PrismaClient } from "@prisma/client";
-import { Context, providers } from "./providers/index.js";
+import { Context, providers } from "📁/index.js";
 import { startJobs } from "./cron.js";
 import { readConfig } from "./config.js";
 import { startServer } from "./server.js";
