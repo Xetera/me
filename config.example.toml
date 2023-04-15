@@ -1,3 +1,7 @@
+[server]
+# Shared secret to enable running tasks manually
+authToken = "..."
+
 [kindle]
 enabled = false
 deviceToken = "..."
@@ -9,3 +13,13 @@ clientId = "..."
 clientSecret = "..."
 refreshToken = "..."
 redirectUri = "..."
+
+[simkl]
+enabled = false
+accessToken = "..."
+clientId = "..."
+# This field and its content are optional if you don't already have a simkl access token generated
+# since their auth flow is kind of weird and requires you to use a browser to get the code
+# [simkl.flow]
+# clientSecret = "..."
+# redirectUri = "..."

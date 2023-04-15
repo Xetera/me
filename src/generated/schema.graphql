@@ -44,6 +44,7 @@ type LikedSong {
 type Query {
   kindleBooks: [Book]
   spotifyLikedSongs: [LikedSong]
+  tv: [TV]
 }
 
 type Song {
@@ -67,4 +68,16 @@ type Song {
 
   """Title of the song"""
   title: String!
+}
+
+type TV {
+  coverUrl: String
+  createdAt: DateTime!
+  episode: String!
+  lastWatchedAt: DateTime!
+  nextEpisode: String
+  simklId: String!
+  simklLink: String
+  title: String!
+  updatedAt: DateTime!
 }

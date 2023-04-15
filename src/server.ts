@@ -1,14 +1,27 @@
-import fastify from "fastify";
-import { Task } from "./cron.js";
-import { Context } from "📁/index.js";
+import fastify, { FastifyRequest } from "fastify";
+import { Task } from "./cron-job.js";
+import { Context } from "@providers/index.js";
 import mercurius from "mercurius";
 import { schema } from "./graphql.js";
+import qs from "node:querystring"
 
 export async function startServer(ctx: Readonly<Context>, tasks: Task[]) {
-	const server = fastify();
+	const server = fastify({
+		querystringParser: (str) => qs.parse(str)
+	});
 
-	server.get("/run/:name", async (req, reply) => {
-		const name = (req.params as { name: string }).name;
+	server.get("/run/:name", async (req: FastifyRequest<{
+		Params: { name: string },
+		Querystring: { auth: string }
+	}>, reply) => {
+		const { auth } = req.query;
+		const { name } = req.params;
+
+		if (auth !== ctx.config.server.authToken) {
+			reply.status(401).send("Unauthorized");
+			return;
+		}
+
 		const task = tasks.find((task) => task.name === name);
 		if (!task) {
 			reply.status(404).send("Not Found");

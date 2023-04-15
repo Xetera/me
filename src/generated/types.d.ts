@@ -68,6 +68,17 @@ export interface NexusGenObjects {
     spotifyUrl?: string | null; // String
     title: string; // String!
   }
+  TV: { // root type
+    coverUrl?: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    episode: string; // String!
+    lastWatchedAt: NexusGenScalars['DateTime']; // DateTime!
+    nextEpisode?: string | null; // String
+    simklId: string; // String!
+    simklLink?: string | null; // String
+    title: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -98,6 +109,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     kindleBooks: Array<NexusGenRootTypes['Book'] | null> | null; // [Book]
     spotifyLikedSongs: Array<NexusGenRootTypes['LikedSong'] | null> | null; // [LikedSong]
+    tv: Array<NexusGenRootTypes['TV'] | null> | null; // [TV]
   }
   Song: { // field return type
     album: string; // String!
@@ -107,6 +119,17 @@ export interface NexusGenFieldTypes {
     previewUrl: string | null; // String
     spotifyUrl: string | null; // String
     title: string; // String!
+  }
+  TV: { // field return type
+    coverUrl: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    episode: string; // String!
+    lastWatchedAt: NexusGenScalars['DateTime']; // DateTime!
+    nextEpisode: string | null; // String
+    simklId: string; // String!
+    simklLink: string | null; // String
+    title: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -128,6 +151,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     kindleBooks: 'Book'
     spotifyLikedSongs: 'LikedSong'
+    tv: 'TV'
   }
   Song: { // field return type name
     album: 'String'
@@ -137,6 +161,17 @@ export interface NexusGenFieldTypeNames {
     previewUrl: 'String'
     spotifyUrl: 'String'
     title: 'String'
+  }
+  TV: { // field return type name
+    coverUrl: 'String'
+    createdAt: 'DateTime'
+    episode: 'String'
+    lastWatchedAt: 'DateTime'
+    nextEpisode: 'String'
+    simklId: 'String'
+    simklLink: 'String'
+    title: 'String'
+    updatedAt: 'DateTime'
   }
 }
 

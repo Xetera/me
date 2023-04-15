@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { CronJob } from "cron";
-import type { Context, Provider } from "📁/index.js";
+import type { Context, Provider } from "@providers/index.js";
 
-const CronExpression = z.string().brand("cron");
+const CronExpression = z.string().brand("cronJob");
 
 export type CronExpression = z.infer<typeof CronExpression>;
 
-export function cron(expression: string): CronExpression {
+export function cronJob(expression: string): CronExpression {
 	return CronExpression.parse(expression);
 }
 
@@ -33,9 +33,13 @@ export function startJobs(
 ): Task[] {
 	return Object.values(providers).map((provider) => {
 		console.log("[scheduler] Creating provider", provider.name);
-		const callback = () => {
+		const callback = async () => {
 			console.log("[scheduler] Running job", provider.name);
-			return provider.run(ctx);
+			try {
+				await provider.run(ctx);
+			} catch (err) {
+				console.error(err)
+			}
 		};
 		const job = scheduleJob(provider.schedule, { callback });
 		if (provider.debug) {

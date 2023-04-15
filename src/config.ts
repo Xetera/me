@@ -1,12 +1,19 @@
 import { parse as parseToml } from "toml";
 import fs from "fs";
 import { z } from "zod";
-import { SpotifyConfig } from "📁/spotify/config.js";
-import { KindleConfig } from "📁/kindle/config.js";
+import { SpotifyConfig } from "@providers/spotify/model.js";
+import { KindleConfig } from "@providers/kindle/model.js";
+import { SimklConfig } from "@providers/simkl/model.js";
+
+const ServerConfig = z.object({
+	authToken: z.string().optional()
+})
 
 export const Config = z.object({
+	server: ServerConfig,
 	spotify: SpotifyConfig,
 	kindle: KindleConfig,
+	simkl: SimklConfig
 });
 
 export type Config = z.infer<typeof Config>;

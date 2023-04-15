@@ -3,16 +3,19 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
+  // output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  relationMode = "prisma"
+  url          = env("DATABASE_URL")
 }
 
+// All ids are ULIDs
+
 model Book {
-  id               Int            @id @default(autoincrement())
+  id               String         @id
   // more than one author possible but we only care about one
   author           String
   title            String
@@ -28,19 +31,20 @@ model Book {
 }
 
 model BookProgress {
-  id       Int      @id @default(autoincrement())
-  bookId   Int      @map("book_id")
+  id       String   @id
+  bookId   String   @map("book_id")
   book     Book     @relation(fields: [bookId], references: [id])
   progress Float
   device   String?
   seenAt   DateTime @default(now()) @map("seen_at")
   syncDate DateTime @map("sync_date")
 
+  @@index([bookId])
   @@map("book_progress")
 }
 
 model Song {
-  id           Int       @id @default(autoincrement())
+  id           String    @id
   durationMs   Int       @map("duration_ms")
   providerLink String?   @map("provider_link")
   provider     String
@@ -53,5 +57,50 @@ model Song {
   likedAt      DateTime? @default(now()) @map("liked_at")
 
   @@unique([provider, providerId], name: "providerKey")
+  @@index(fields: [likedAt])
   @@map("song")
+}
+
+model SimklActivity {
+  // represents the key in the activity
+  // https://simkl.docs.apiary.io/#reference/sync/get-last-activity
+  type      String   @id
+  createdAt DateTime @default(now()) @map("created_at")
+  // overwritten for each key of activity
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("simkl_activity")
+}
+
+model Request {
+  uuid      String  @id
+  service   String
+  status    Int
+  sucessful Boolean
+  // This doesn't really need to be json
+  headers   String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@index(fields: [createdAt])
+  @@map("request")
+}
+
+model SimklShow {
+  simklId     String  @map("simkl_id")
+  title       String
+  // "S02E01"
+  episode     String
+  nextEpisode String? @map("next_episode")
+  coverUrl    String? @map("cover_url")
+  simklLink   String? @map("simkl_link")
+
+  createdAt     DateTime  @default(now()) @map("created_at")
+  lastWatchedAt DateTime? @map("last_watched_at")
+  updatedAt     DateTime  @default(now()) @map("updated_at")
+
+  // Every show has 1 unique episode... I hope
+  @@unique([simklId, episode], name: "showEpisode")
+  @@map("simkl_show")
 }

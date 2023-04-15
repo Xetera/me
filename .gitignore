@@ -3,3 +3,4 @@ node_modules
 prisma/dev.db
 dist
 .idea
+.env

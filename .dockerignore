@@ -1,0 +1,10 @@
+node_modules
+.idea
+.vscode
+.dokku
+dist
+.git
+.env
+CHECKS
+config*.toml
+Procfile
