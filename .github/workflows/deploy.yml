@@ -21,3 +21,4 @@ jobs:
           git_push_flags: "--force"
           git_remote_url: "ssh://dokku@${{ secrets.IP }}:22/me"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          branch: main
