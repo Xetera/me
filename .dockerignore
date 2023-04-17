@@ -5,6 +5,5 @@ node_modules
 dist
 .git
 .env
-CHECKS
 config*.toml
 Procfile
