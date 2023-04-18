@@ -107,9 +107,9 @@ export interface NexusGenFieldTypes {
     song: NexusGenRootTypes['Song']; // Song!
   }
   Query: { // field return type
-    kindleBooks: Array<NexusGenRootTypes['Book'] | null> | null; // [Book]
-    spotifyLikedSongs: Array<NexusGenRootTypes['LikedSong'] | null> | null; // [LikedSong]
-    tv: Array<NexusGenRootTypes['TV'] | null> | null; // [TV]
+    kindleBooks: NexusGenRootTypes['Book'][]; // [Book!]!
+    spotifyLikedSongs: NexusGenRootTypes['LikedSong'][]; // [LikedSong!]!
+    tv: NexusGenRootTypes['TV'][]; // [TV!]!
   }
   Song: { // field return type
     album: string; // String!

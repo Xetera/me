@@ -80,7 +80,6 @@ const kindleProvider = makeProvider({
     return books
       .map((book) => {
         const result = results.find((r) => r.book_id === book.id);
-        console.log(result);
         if (!result) return;
 
         const device = sanitizeDeviceName(result.device);

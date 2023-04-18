@@ -1,4 +1,4 @@
-import { makeSchema, list, objectType, asNexusMethod } from "nexus";
+import { makeSchema, list, objectType, asNexusMethod, nonNull } from "nexus";
 import * as url from "url";
 import path from "path";
 import { providers } from "@providers/index.js";
@@ -15,7 +15,7 @@ export const Query = objectType({
   name: "Query",
   definition(t) {
     t.field("spotifyLikedSongs", {
-      type: list(LikedSong),
+      type: nonNull(list(nonNull(LikedSong))),
       async resolve(_, __, ctx) {
         const likedSongs =
           (await providers.spotifyLikedSongs.queryLatest?.(ctx)) ?? [];
@@ -23,14 +23,14 @@ export const Query = objectType({
       },
     });
     t.field("tv", {
-      type: list(TV),
+      type: nonNull(list(nonNull(TV))),
       async resolve(_, __, ctx) {
         const tv = (await providers.simkl.queryLatest?.(ctx)) ?? [];
         return tv;
       },
     });
     t.field("kindleBooks", {
-      type: list(Book),
+      type: nonNull(list(nonNull(Book))),
       async resolve(_, __, ctx) {
         const kindle = (await providers.kindle.queryLatest?.(ctx)) ?? [];
         return kindle;
