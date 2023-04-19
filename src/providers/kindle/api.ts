@@ -4,21 +4,21 @@ import { KindleAuthor } from "kindle-api/dist/book";
 
 const FETCHING_DELAY = 200;
 export async function* iterBooks(client: Kindle) {
-	for await (const book of client.defaultBooks) {
-		await sleep(FETCHING_DELAY);
+  for await (const book of client.defaultBooks) {
+    await sleep(FETCHING_DELAY);
 
-		const lightDetails = await book.details();
-		const isUnread = lightDetails.progress.position === -1;
+    const lightDetails = await book.details();
+    const isUnread = lightDetails.progress.position === -1;
 
-		if (isUnread) {
-			continue;
-		}
+    if (isUnread) {
+      continue;
+    }
 
-		yield await book.fullDetails(lightDetails);
-	}
+    yield await book.fullDetails(lightDetails);
+  }
 }
 
 export function authorName(authors: KindleAuthor[]): string {
-	const [author] = authors;
-	return author ? `${author.firstName} ${author.lastName}` : '[unknown]';
+  const [author] = authors;
+  return author ? `${author.firstName} ${author.lastName}` : "[unknown]";
 }

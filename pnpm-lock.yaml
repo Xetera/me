@@ -20,8 +20,8 @@ dependencies:
     specifier: ^1.21.3
     version: 1.21.3(graphql@16.6.0)
   kindle-api:
-    specifier: ^0.2.6
-    version: 0.2.6
+    specifier: ^0.2.7
+    version: 0.2.7
   mercurius:
     specifier: ^12.2.0
     version: 12.2.0(graphql@16.6.0)
@@ -1408,8 +1408,8 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /kindle-api@0.2.6:
-    resolution: {integrity: sha512-ujCRkwkjxXODm38cF/IBdVEavRb+d1iKyhVv/yyfQPvNg8Erpy0ob85rMykeBcQYLhGsCOYqcA3J6uyIIq+9uA==}
+  /kindle-api@0.2.7:
+    resolution: {integrity: sha512-+YrlHuA4bE/Yap9zdAP0dfCQObNBWWlIvuzUNSE58vef5kIKDg3jqznXG7ULEqDMg+tHpr4ZiNEGywRExhyZ2Q==}
     dependencies:
       cycletls: 1.0.21
     transitivePeerDependencies:

@@ -24,7 +24,7 @@ const kindleProvider = makeProvider({
         provider: "AMAZON",
         providerId: book.asin,
         title: book.title,
-        coverUrl: book.productUrl,
+        coverUrl: book.largeCoverUrl,
         author: author,
       };
 
