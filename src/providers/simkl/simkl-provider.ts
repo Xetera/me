@@ -36,7 +36,7 @@ const simklProvider = makeProvider({
       return;
     }
 
-    const { shows, anime } = await getItems(
+    const { shows = [], anime = [] } = await getItems(
       ctx,
       lastRun?.updatedAt.toISOString() ?? activities.all
     );

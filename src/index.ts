@@ -1,11 +1,9 @@
 import initClient from "cycletls";
-import { PrismaClient } from "@prisma/client";
 import { Context, providers } from "@providers/index.js";
 import { startJobs } from "./cron-job.js";
 import { readConfig } from "./config.js";
 import { startServer } from "./server.js";
-
-const prisma = new PrismaClient();
+import { prisma } from "./database/client.js";
 
 async function main(configPath: string) {
   console.log("[server] Initializing cycletls");

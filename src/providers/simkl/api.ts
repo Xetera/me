@@ -1,4 +1,4 @@
-import { Context } from "@/graphql-context";
+import { Context } from "@/graphql/graphql-context";
 import { z } from "zod";
 import qs from "node:querystring";
 import { URL } from "node:url";
@@ -42,8 +42,8 @@ export const SimklItem = z.object({
 });
 
 const SimklItemsResponse = z.object({
-  shows: z.array(SimklItem),
-  anime: z.array(SimklItem),
+  shows: z.array(SimklItem).optional(),
+  anime: z.array(SimklItem).optional(),
 });
 
 export const SimklActivity = z.object({

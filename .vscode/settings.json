@@ -1,0 +1,4 @@
+{
+  "vitest.commandLine": "pnpm exec test",
+  "vitest.enable": false
+}

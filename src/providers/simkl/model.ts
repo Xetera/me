@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { objectType } from "nexus";
+import { builder } from "@/graphql/builder.js";
 
 /**
  * Users should either supply a client secret (for fetching an access token)
@@ -19,17 +19,40 @@ export const SimklConfig = z.object({
 
 export type SimklConfig = z.infer<typeof SimklConfig>;
 
-export const TV = objectType({
+export const TV = builder.prismaObject("SimklShow", {
   name: "TV",
-  definition(t) {
-    t.nonNull.string("simklId");
-    t.nonNull.string("title");
-    t.nonNull.string("episode");
-    t.string("nextEpisode");
-    t.nonNull.field("lastWatchedAt", { type: "DateTime" });
-    t.string("coverUrl");
-    t.string("simklLink");
-    t.nonNull.field("createdAt", { type: "DateTime" });
-    t.nonNull.field("updatedAt", { type: "DateTime" });
-  },
+  fields: (t) => ({
+    simklId: t.exposeString("simklId"),
+    title: t.exposeString("title"),
+    episode: t.exposeString("episode"),
+    nextEpisode: t.field({
+      type: "String",
+      nullable: true,
+      resolve: (root) => root.nextEpisode,
+    }),
+    lastWatchedAt: t.field({
+      type: "Date",
+      nullable: true,
+      resolve: (root) =>
+        root.lastWatchedAt ? new Date(root.lastWatchedAt) : null,
+    }),
+    coverUrl: t.field({
+      type: "String",
+      nullable: true,
+      resolve: (root) => root.coverUrl,
+    }),
+    simklLink: t.field({
+      type: "String",
+      nullable: true,
+      resolve: (root) => root.simklLink,
+    }),
+    createdAt: t.field({
+      type: "Date",
+      resolve: (root) => root.createdAt,
+    }),
+    updatedAt: t.field({
+      type: "Date",
+      resolve: (root) => root.updatedAt,
+    }),
+  }),
 });

@@ -3,6 +3,7 @@ import { cronJob } from "@/cron-job.js";
 import qs from "node:querystring";
 import type { AccessToken, PlaylistTrack, Track } from "spotify-types";
 import { ulid } from "ulid";
+import { LikedSongBacking } from "./model.js";
 
 const spotifyLikedProvider = makeProvider({
   name: "spotify.liked",
@@ -95,20 +96,7 @@ const spotifyLikedProvider = makeProvider({
         likedAt: "desc",
       },
     });
-    return songs.map((song) => {
-      return {
-        likedAt: song.likedAt,
-        song: {
-          title: song.title,
-          artist: song.artist,
-          album: song.album,
-          coverUrl: song.coverUrl,
-          durationMs: song.durationMs,
-          spotifyUrl: song.providerLink,
-          previewUrl: song.previewUrl,
-        },
-      };
-    });
+    return songs.map((song) => new LikedSongBacking(song, song.likedAt));
   },
 });
 

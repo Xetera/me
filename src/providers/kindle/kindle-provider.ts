@@ -3,6 +3,7 @@ import { makeProvider } from "@providers/index.js";
 import { cronJob } from "@/cron-job.js";
 import { authorName, iterBooks } from "./api.js";
 import { ulid } from "ulid";
+import { ReadBook } from "./model.js";
 
 const kindleProvider = makeProvider({
   name: "kindle",
@@ -82,17 +83,12 @@ const kindleProvider = makeProvider({
         const result = results.find((r) => r.book_id === book.id);
         if (!result) return;
 
-        const device = sanitizeDeviceName(result.device);
-        return {
-          author: book.author,
-          title: book.title,
-          asin: book.providerId,
-          coverUrl: book.coverUrl,
+        return new ReadBook(book, {
+          bookId: result.book_id,
+          device: result.device,
           progress: result.progress,
-          device,
-          readAt: new Date(result.sync_date),
-          firstSeen: new Date(book.seenAt),
-        };
+          syncDate: new Date(result.sync_date),
+        });
       })
       .filter(Boolean);
   },
