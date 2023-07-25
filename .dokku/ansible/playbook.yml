@@ -22,7 +22,7 @@
       37366531306437366665353032343336363764323430343938663064396365343864376434356138
       38393133656662633861
     container_mount_path: "/store"
-    tls_proxy_network: "tls-proxy"
+    tls_proxy_network: "tls-net"
     host_mount_path: "/var/lib/dokku/data/storage/{{ app }}"
   tasks:
     - name: Create app
