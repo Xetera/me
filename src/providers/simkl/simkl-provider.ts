@@ -51,7 +51,11 @@ const simklProvider = makeProvider({
 
     const sorted = shows
       .concat(anime)
-      .sort((a, b) => b.last_watched.localeCompare(a.last_watched));
+      .sort((a, b) =>
+        b.last_watched && a.last_watched
+          ? b.last_watched.localeCompare(a.last_watched)
+          : -1
+      );
 
     const queries: Array<PrismaPromise<unknown>> = [
       prisma.simklActivity.upsert({

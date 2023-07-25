@@ -8,7 +8,7 @@ export const SimklItem = z.object({
   last_watched_at: z.string(),
   status: z.string().nullable(),
   // user_rating: z.object({}).nullable(),
-  last_watched: z.string(),
+  last_watched: z.string().nullable(),
   next_to_watch: z.string().nullable(),
   watched_episodes_count: z.number(),
   total_episodes_count: z.number(),
