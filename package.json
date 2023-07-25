@@ -13,7 +13,7 @@
     "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' tsx watch src/index.ts",
     "generate": "prisma generate",
     "start": "node dist/index.js",
-    "encrypt": "ansible-vault encrypt ./config.toml --output .dokku/ansible/config.toml.enc"
+    "encrypt": "ansible-vault encrypt ./config.prod.toml --output .dokku/ansible/config.toml.enc"
   },
   "keywords": [],
   "author": "",
