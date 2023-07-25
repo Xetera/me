@@ -9,11 +9,11 @@ const kindleProvider = makeProvider({
   name: "kindle",
   // cronJob expression for every 12 hours
   schedule: cronJob("0 */12 * * *"),
-  async run({ prisma, config, httpClient }) {
+  async run({ prisma, config }) {
     const kindle = await Kindle.fromConfig({
       cookies: config.kindle.cookies,
       deviceToken: config.kindle.deviceToken,
-      httpClient,
+      tlsServer: config.kindle.tlsServer,
     });
 
     // Very rudimentary

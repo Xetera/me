@@ -7,6 +7,10 @@ export const KindleConfig = z.object({
   enabled: z.boolean().default(false),
   deviceToken: z.string(),
   cookies: z.string(),
+  tlsServer: z.object({
+    apiKey: z.string(),
+    url: z.string(),
+  }),
 });
 
 export type KindleConfig = z.infer<typeof KindleConfig>;

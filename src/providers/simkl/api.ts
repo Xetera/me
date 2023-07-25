@@ -62,11 +62,10 @@ function getHeaders(config: Context["config"]): Record<string, string> {
 }
 
 export async function getActivities(ctx: Context): Promise<SimklActivity> {
-  const response = await ctx.httpClient.get(
-    "https://api.simkl.com/sync/activities",
-    { headers: getHeaders(ctx.config) }
-  );
-  return SimklActivity.parse(response.body);
+  const response = await fetch("https://api.simkl.com/sync/activities", {
+    headers: getHeaders(ctx.config),
+  }).then((r) => r.json());
+  return SimklActivity.parse(response);
 }
 
 export async function getItems(ctx: Context, dateFrom: string) {
@@ -74,9 +73,9 @@ export async function getItems(ctx: Context, dateFrom: string) {
     episode_watched_at: "yes",
     ...(dateFrom ? { date_from: dateFrom } : {}),
   });
-  const response = await ctx.httpClient.get(
+  const response = await fetch(
     `https://api.simkl.com/sync/all-items/all/all?${params}`,
     { headers: getHeaders(ctx.config) }
-  );
-  return SimklItemsResponse.parse(response.body);
+  ).then((r) => r.json());
+  return SimklItemsResponse.parse(response);
 }

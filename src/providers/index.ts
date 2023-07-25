@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { CycleTLSClient } from "cycletls";
 import { Config } from "@/config.js";
 import { CronExpression } from "@/cron-job.js";
 import kindleProvider from "@providers/kindle/kindle-provider.js";
@@ -9,7 +8,6 @@ import simklProvider from "@providers/simkl/simkl-provider.js";
 export type Context = {
   prisma: PrismaClient;
   config: Config;
-  httpClient: CycleTLSClient;
 };
 
 export interface Provider<T> {
@@ -30,5 +28,5 @@ export function makeProvider<T>(p: Provider<T>): Provider<T> {
 export const providers = {
   kindle: kindleProvider,
   spotifyLikedSongs: spotifyLikedProvider,
-  simkl: simklProvider
+  simkl: simklProvider,
 };

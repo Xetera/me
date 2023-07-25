@@ -6,6 +6,9 @@ authToken = "..."
 enabled = false
 deviceToken = "..."
 cookies = "..."
+  [kindle.tlsServer]
+  apiKey = "..."
+  url = "..."
 
 [spotify]
 enabled = false
