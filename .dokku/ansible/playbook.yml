@@ -22,6 +22,7 @@
       37366531306437366665353032343336363764323430343938663064396365343864376434356138
       38393133656662633861
     container_mount_path: "/store"
+    tls_proxy_network: "tls-proxy"
     host_mount_path: "/var/lib/dokku/data/storage/{{ app }}"
   tasks:
     - name: Create app
@@ -42,9 +43,14 @@
           DOKKU_APP_TYPE: dockerfile
           DATABASE_URL: "{{ database_url }}"
           CONFIG_PATH: "{{ container_mount_path }}/config.toml"
-    - name: Join tls-proxy network
+    - name: Create tls-proxy network
       dokku_network:
-        name: tls-proxy
+        name: "{{ tls_proxy_network }}"
+    - name: Join tls-proxy network
+      dokku_network_property:
+        app: "{{ app }}"
+        property: attach-post-create
+        value: "{{ tls_proxy_network }}"
     - name: Copy configuration
       ansible.builtin.copy:
         src: config.toml.enc
