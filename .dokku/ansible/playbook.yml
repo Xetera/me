@@ -44,8 +44,7 @@
           CONFIG_PATH: "{{ container_mount_path }}/config.toml"
     - name: Join tls-proxy network
       dokku_network:
-        app: "{{ app }}"
-        network: tls-proxy
+        name: tls-proxy
     - name: Copy configuration
       ansible.builtin.copy:
         src: config.toml.enc
