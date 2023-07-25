@@ -1,6 +1,5 @@
 import { makeProvider } from "@providers/index.js";
 import { cronJob } from "@/cron-job.js";
-import { inspect } from "node:util";
 import { z } from "zod";
 import { getActivities, getItems } from "./api.js";
 import { PrismaPromise } from "@prisma/client";
@@ -67,29 +66,31 @@ const simklProvider = makeProvider({
       }),
     ];
     for (const item of sorted) {
-      const data = {
-        episode: item.last_watched,
-        nextEpisode: item.next_to_watch,
-        coverUrl: item.show.poster?.toString(),
-        // not everything is TV but it gets corrected anyways
-        simklLink: `https://simkl.com/tv/${item.show.ids.simkl}`,
-        // we especially wanna make sure this is updated
-        lastWatchedAt: item.last_watched_at,
-        simklId: item.show.ids.simkl,
-        title: item.show.title,
-      };
-      queries.push(
-        prisma.simklShow.upsert({
-          where: {
-            showEpisode: {
-              simklId: item.show.ids.simkl,
-              episode: item.last_watched,
+      if (item.last_watched) {
+        const data = {
+          episode: item.last_watched,
+          nextEpisode: item.next_to_watch,
+          coverUrl: item.show.poster?.toString(),
+          // not everything is TV but it gets corrected anyways
+          simklLink: `https://simkl.com/tv/${item.show.ids.simkl}`,
+          // we especially wanna make sure this is updated
+          lastWatchedAt: item.last_watched_at,
+          simklId: item.show.ids.simkl,
+          title: item.show.title,
+        };
+        queries.push(
+          prisma.simklShow.upsert({
+            where: {
+              showEpisode: {
+                simklId: item.show.ids.simkl,
+                episode: item.last_watched,
+              },
             },
-          },
-          create: data,
-          update: data,
-        })
-      );
+            create: data,
+            update: data,
+          })
+        );
+      }
     }
     await prisma.$transaction(queries);
   },

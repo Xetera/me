@@ -10,7 +10,7 @@
     "compile": "swc ./src -d ./dist --source-maps",
     "build": "pnpm compile && tsc-alias -p tsconfig.json",
     "migrate": "prisma migrate deploy",
-    "dev": "tsx watch src/index.ts",
+    "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' tsx watch src/index.ts",
     "generate": "prisma generate",
     "start": "node dist/index.js",
     "encrypt": "ansible-vault encrypt ./config.toml --output .dokku/ansible/config.toml.enc"

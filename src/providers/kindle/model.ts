@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  Book as PrismaBook,
-  BookProgress as PrismaBookProgress,
-} from "@prisma/client";
+import { Book as PrismaBook } from "@prisma/client";
 import { builder } from "@/graphql/builder.js";
 import { sanitizeDeviceName } from "./kindle-provider.js";
 
@@ -77,5 +74,3 @@ export const Book = builder.objectType(ReadBook, {
     }),
   }),
 });
-
-// convert this to builder
