@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
 }
 
 generator pothos {
@@ -45,6 +46,15 @@ model BookProgress {
 
   @@index([bookId])
   @@map("book_progress")
+}
+
+view BookProgressView {
+  bookId   String   @id @map("book_id")
+  progress Float
+  device   String?
+  syncDate DateTime @map("sync_date")
+
+  @@map("book_progress_view")
 }
 
 model Song {

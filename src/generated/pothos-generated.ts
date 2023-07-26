@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { Prisma, Book, BookProgress, Song, SimklActivity, Request, SimklShow } from "/Users/xetera/me-ts/node_modules/.pnpm/@prisma+client@4.13.0-dev.35_prisma@4.13.0-dev.35/node_modules/@prisma/client";
+import type { Prisma, Book, BookProgress, Song, SimklActivity, Request, SimklShow, BookProgressView } from "/Users/xetera/me-ts/node_modules/.pnpm/@prisma+client@5.0.0_prisma@5.0.0/node_modules/@prisma/client";
 export default interface PrismaTypes {
     Book: {
         Name: "Book";
@@ -89,6 +89,20 @@ export default interface PrismaTypes {
         OrderBy: Prisma.SimklShowOrderByWithRelationInput;
         WhereUnique: Prisma.SimklShowWhereUniqueInput;
         Where: Prisma.SimklShowWhereInput;
+        Create: {};
+        Update: {};
+        RelationName: never;
+        ListRelations: never;
+        Relations: {};
+    };
+    BookProgressView: {
+        Name: "BookProgressView";
+        Shape: BookProgressView;
+        Include: never;
+        Select: Prisma.BookProgressViewSelect;
+        OrderBy: Prisma.BookProgressViewOrderByWithRelationInput;
+        WhereUnique: Prisma.BookProgressViewWhereUniqueInput;
+        Where: Prisma.BookProgressViewWhereInput;
         Create: {};
         Update: {};
         RelationName: never;

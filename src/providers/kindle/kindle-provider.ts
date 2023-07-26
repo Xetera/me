@@ -62,32 +62,25 @@ const kindleProvider = makeProvider({
     }
   },
   async queryLatest(ctx) {
-    const results = (await ctx.prisma.$queryRaw`
-      SELECT book_id, MAX(progress) as progress, device, MAX(sync_date) as sync_date FROM book_progress group by book_id, device having MAX(sync_date)
-    `) as {
-      book_id: string;
-      progress: number;
-      device: string;
-      sync_date: number;
-    }[];
+    const results = await ctx.prisma.bookProgressView.findMany({});
 
     const books = await ctx.prisma.book.findMany({
       where: {
         id: {
-          in: results.map((r) => r.book_id),
+          in: results.map((r) => r.bookId),
         },
       },
     });
     return books
       .map((book) => {
-        const result = results.find((r) => r.book_id === book.id);
+        const result = results.find((r) => r.bookId === book.id);
         if (!result) return;
 
         return new ReadBook(book, {
-          bookId: result.book_id,
-          device: result.device,
+          bookId: result.bookId,
+          device: result.device ?? undefined,
           progress: result.progress,
-          syncDate: new Date(result.sync_date),
+          syncDate: new Date(result.syncDate),
         });
       })
       .filter(Boolean);

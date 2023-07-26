@@ -18,7 +18,7 @@ export type KindleConfig = z.infer<typeof KindleConfig>;
 export type BookProgress = {
   bookId: string;
   progress: number;
-  device: string;
+  device?: string;
   syncDate: Date;
 };
 
