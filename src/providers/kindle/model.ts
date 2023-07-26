@@ -59,8 +59,11 @@ export const Book = builder.objectType(ReadBook, {
     }),
     device: t.field({
       type: "String",
+      nullable: true,
       resolve: (root) => {
-        return sanitizeDeviceName(root.progress.device);
+        return root.progress.device
+          ? sanitizeDeviceName(root.progress.device)
+          : null;
       },
     }),
     readAt: t.field({
