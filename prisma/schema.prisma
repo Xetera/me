@@ -48,6 +48,7 @@ model BookProgress {
   @@map("book_progress")
 }
 
+// Needed because prisma doesn't support row_number or whatever even on raw sql https://github.com/prisma/prisma/issues/17122
 view BookProgressView {
   bookId   String   @id @map("book_id")
   progress Float
