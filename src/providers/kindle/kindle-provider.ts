@@ -76,6 +76,7 @@ const kindleProvider = makeProvider({
 
     const books = await ctx.prisma.book.findMany({
       where: {
+        ...(opts.filter === "purchased" ? { isPurchased: true } : {}),
         id: {
           in: results.map((r) => r.bookId),
         },
