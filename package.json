@@ -42,7 +42,7 @@
     "fastify": "^4.15.0",
     "graphql": "^16.7.1",
     "graphql-scalars": "^1.21.3",
-    "kindle-api": "^1.3.0",
+    "kindle-api": "^1.4.0",
     "mercurius": "^12.2.0",
     "toml": "^3.0.0",
     "ulid": "^2.3.0",

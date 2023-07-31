@@ -4,6 +4,14 @@ import { cronJob } from "@/cron-job.js";
 import { authorName, iterBooks } from "./api.js";
 import { ulid } from "ulid";
 import { ReadBook } from "./model.js";
+import { z } from "zod";
+
+export const BookFilter = z
+  .union([z.literal("purchased"), z.literal("all")])
+  .optional()
+  .default("all");
+
+export type BookFilter = z.infer<typeof BookFilter>;
 
 const kindleProvider = makeProvider({
   name: "kindle",
@@ -17,16 +25,18 @@ const kindleProvider = makeProvider({
     });
 
     // Very rudimentary
-    for await (const book of iterBooks(kindle)) {
-      const progress = parseFloat(book.percentageRead.toFixed(1));
-      const author = authorName(book.authors);
+    for await (const { details, book } of iterBooks(kindle)) {
+      const progress = parseFloat(details.percentageRead.toFixed(1));
+      const author = authorName(details.authors);
+      const isPurchased = !book.resourceType.toLowerCase().includes("sample");
 
       const data = {
         provider: "AMAZON",
-        providerId: book.asin,
-        title: book.title,
-        coverUrl: book.largeCoverUrl,
+        providerId: details.asin,
+        title: details.title,
+        coverUrl: details.largeCoverUrl,
         author: author,
+        isPurchased,
       };
 
       // this shouldn't be a big problem to do in a loop
@@ -54,14 +64,14 @@ const kindleProvider = makeProvider({
               providerKey,
             },
           },
-          device: book.progress.reportedOnDevice,
-          syncDate: book.progress.syncDate,
+          device: details.progress.reportedOnDevice,
+          syncDate: details.progress.syncDate,
           seenAt: new Date(),
         },
       });
     }
   },
-  async queryLatest(ctx) {
+  async queryLatest(ctx, opts: { filter: BookFilter }) {
     const results = await ctx.prisma.bookProgressView.findMany({});
 
     const books = await ctx.prisma.book.findMany({
@@ -83,7 +93,8 @@ const kindleProvider = makeProvider({
           syncDate: new Date(result.syncDate),
         });
       })
-      .filter(Boolean);
+      .filter(Boolean)
+      .sort((a, b) => (b.progress.syncDate > a.progress.syncDate ? 1 : -1));
   },
 });
 

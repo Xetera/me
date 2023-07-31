@@ -10,7 +10,7 @@ export type Context = {
   config: Config;
 };
 
-export interface Provider<T> {
+export interface Provider<T, K = unknown> {
   /**
    * this name will be used for identifying the provider in the api response
    */
@@ -18,10 +18,12 @@ export interface Provider<T> {
   schedule: CronExpression;
   debug?: boolean;
   run(ctx: Readonly<Context>): Promise<unknown>;
-  queryLatest?(ctx: Readonly<Context>): Promise<T>;
+  queryLatest?(ctx: Readonly<Context>, options: K): Promise<T>;
 }
 
-export function makeProvider<T>(p: Provider<T>): Provider<T> {
+export function makeProvider<T, K = unknown>(
+  p: Provider<T, K>
+): Provider<T, K> {
   return p;
 }
 

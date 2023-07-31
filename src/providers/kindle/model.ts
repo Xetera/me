@@ -79,5 +79,10 @@ export const Book = builder.objectType(ReadBook, {
       description: "The first time this book was seen on the Kindle API",
       resolve: (root) => root.book.seenAt,
     }),
+    isPurchased: t.field({
+      type: "Boolean",
+      description: "Whether this book was purchased",
+      resolve: (root) => root.book.isPurchased,
+    }),
   }),
 });

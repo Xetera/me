@@ -4,7 +4,7 @@ import { KindleAuthor } from "kindle-api/dist/book";
 
 const FETCHING_DELAY = 200;
 export async function* iterBooks(client: Kindle) {
-  for await (const book of client.defaultBooks) {
+  for (const book of client.defaultBooks) {
     await sleep(FETCHING_DELAY);
 
     const lightDetails = await book.details();
@@ -14,7 +14,7 @@ export async function* iterBooks(client: Kindle) {
       continue;
     }
 
-    yield await book.fullDetails(lightDetails);
+    yield { details: await book.fullDetails(lightDetails), book };
   }
 }
 

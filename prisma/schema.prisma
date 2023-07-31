@@ -29,6 +29,8 @@ model Book {
   providerId       String         @map("provider_id")
   recordedProgress BookProgress[]
   coverUrl         String         @map("cover_url")
+  // there's no date value for this so we can't timestamp it
+  isPurchased      Boolean        @default(true) @map("is_purchased")
   seenAt           DateTime       @default(now()) @map("seen_at")
 
   @@unique([provider, providerId], name: "providerKey")
