@@ -8,11 +8,9 @@ import { TV } from "@providers/simkl/model.js";
 import { builder } from "./graphql/builder.js";
 import { BookFilter } from "@providers/kindle/kindle-provider.js";
 
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
 builder.addScalarType("Date", GraphQLDateTime, {});
 
-const FilterType = builder.enumType("FilterType", {
+const FilterType = builder.enumType("KindleFilterType", {
   values: {
     ALL: {
       description: "Include all read books seen in the user's library",
