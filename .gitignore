@@ -4,3 +4,4 @@ prisma/dev.db
 dist
 .idea
 .env
+data/*.db

@@ -12,9 +12,9 @@ generator pothos {
 }
 
 datasource db {
-  provider     = "mysql"
-  relationMode = "prisma"
-  url          = env("DATABASE_URL")
+  provider     = "sqlite"
+  relationMode = "foreignKeys"
+  url          = "file:../data/me.db"
 }
 
 // All ids are ULIDs
