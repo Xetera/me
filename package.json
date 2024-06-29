@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "compile": "swc ./src -d ./dist --source-maps",
+    "compile": "swc --strip-leading-paths ./src -d ./dist --source-maps",
     "build": "pnpm compile && tsc-alias -p tsconfig.json",
     "migrate": "prisma migrate deploy",
     "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' tsx watch src/index.ts",
@@ -47,5 +47,6 @@
     "toml": "^3.0.0",
     "ulid": "^2.3.0",
     "zod": "^3.21.4"
-  }
+  },
+  "packageManager": "pnpm@9.4.0"
 }
