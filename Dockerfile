@@ -12,13 +12,14 @@ RUN pnpm install --frozen-lockfile --unsafe-perm
 
 FROM ${BASE} as builder
 
+RUN apt-get update -y && apt-get install -y curl openssl
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 COPY --from=dependencies /app/node_modules ./node_modules
 
-COPY prisma ./primsa
+COPY prisma ./prisma
 
 COPY . .
 RUN pnpm build
