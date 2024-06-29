@@ -1,7 +1,0 @@
-# This file is used by dokku to configure
-# healthchecks for zero downtime deployments
-WAIT=2
-TIMEOUT=4
-ATTEMPTS=2
-
-/health OK
