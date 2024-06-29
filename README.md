@@ -32,7 +32,7 @@ I personally use [Dokku](https://dokku.com/docs/getting-started/installation/) f
 
 In case you want to deploy my way:
 
-1. Run `pnpm encrypt` to move your private key to `.dokku/ansible/config.toml.enc`
+1. Run `pnpm encrypt` to move your encrypted configuration file to `.dokku/ansible/config.toml.enc`
 2. Add `IP` and `PRIVATE_KEY` in github secrets corresponding to the private key you use to deploy in Dokku.
 3. Change the `domains` and `database_url` `.dokku/ansible/playbook.yml` to your own.
 
