@@ -1,4 +1,4 @@
-ARG BASE=node:18.13-slim
+ARG BASE=node:20.15-slim
 
 FROM ${BASE} as dependencies
 
