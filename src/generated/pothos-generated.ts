@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { Prisma, Book, BookProgress, Song, SimklActivity, Request, SimklShow, BookProgressView } from "/Users/xetera/me-ts/node_modules/.pnpm/@prisma+client@5.0.0_prisma@5.0.0/node_modules/@prisma/client";
+import type { Prisma, Book, BookProgress, Song, SimklActivity, Request, SimklShow, BookProgressView } from "/Users/xetera/me-ts/node_modules/.pnpm/@prisma+client@5.16.1_prisma@5.16.1/node_modules/@prisma/client";
 export default interface PrismaTypes {
     Book: {
         Name: "Book";
@@ -17,6 +17,7 @@ export default interface PrismaTypes {
             recordedProgress: {
                 Shape: BookProgress[];
                 Name: "BookProgress";
+                Nullable: false;
             };
         };
     };
@@ -36,6 +37,7 @@ export default interface PrismaTypes {
             book: {
                 Shape: Book;
                 Name: "Book";
+                Nullable: false;
             };
         };
     };

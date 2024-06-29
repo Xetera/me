@@ -11,7 +11,7 @@ export function cronJob(expression: string): CronExpression {
 }
 
 export type ScheduleJobOptions = {
-  callback: () => Promise<unknown>;
+  callback: () => Promise<any>;
 };
 
 export function scheduleJob(
