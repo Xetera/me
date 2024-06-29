@@ -38,7 +38,7 @@ const simklProvider = makeProvider({
 
     const { shows = [], anime = [] } = await getItems(
       ctx,
-      lastRun?.updatedAt.toISOString() ?? activities.all
+      lastRun?.updatedAt.toISOString()
     );
 
     // we should already have everything until the last run here

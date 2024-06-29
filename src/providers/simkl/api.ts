@@ -68,7 +68,7 @@ export async function getActivities(ctx: Context): Promise<SimklActivity> {
   return SimklActivity.parse(response);
 }
 
-export async function getItems(ctx: Context, dateFrom: string) {
+export async function getItems(ctx: Context, dateFrom?: string) {
   const params = qs.stringify({
     episode_watched_at: "yes",
     ...(dateFrom ? { date_from: dateFrom } : {}),
