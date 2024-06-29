@@ -32,6 +32,7 @@ const simklProvider = makeProvider({
     const isDataStale =
       lastRun && new Date(activities.all) <= new Date(lastRun.updatedAt);
     if (isDataStale) {
+      console.log("Exiting from simkl provider, data is up to date")
       return;
     }
 
@@ -51,8 +52,8 @@ const simklProvider = makeProvider({
     const sorted = shows
       .concat(anime)
       .sort((a, b) =>
-        b.last_watched && a.last_watched
-          ? b.last_watched.localeCompare(a.last_watched)
+        b.last_watched_at && a.last_watched_at
+          ? b.last_watched_at.localeCompare(a.last_watched_at)
           : -1
       );
 
