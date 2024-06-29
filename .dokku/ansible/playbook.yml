@@ -45,4 +45,4 @@
       dokku_storage:
         app: "{{ app }}"
         mounts:
-          - "{{ host_mount_path }}:/data"
+          - "{{ host_mount_path }}:/app/data"
