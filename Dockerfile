@@ -1,6 +1,6 @@
 ARG BASE=node:22-slim
 
-FROM ${BASE} as dependencies
+FROM ${BASE} AS dependencies
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile --unsafe-perm
 
-FROM ${BASE} as builder
+FROM ${BASE} AS builder
 
 RUN apt-get update -y && apt-get install -y curl openssl
 RUN corepack enable && corepack prepare pnpm@latest --activate

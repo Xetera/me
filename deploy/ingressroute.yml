@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: me
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`k8s-me.xetera.dev`)
+      priority: 10
+      services:
+        - name: me
+          port: 80
+      middlewares:
+        - name: ingress-cloudflare-only@kubernetescrd
+  tls:
+    options:
+      name: ingress-cloudflare-mtls@kubernetescrd
+    secretName: cloudflare-origin-xetera-dev

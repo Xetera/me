@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: me
+spec:
+  podMetricsEndpoints:
+    - interval: 5s
+      port: "3000"
+  selector:
+    matchLabels:
+      app: me
