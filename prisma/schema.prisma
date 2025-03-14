@@ -12,9 +12,8 @@ generator pothos {
 }
 
 datasource db {
-  provider     = "sqlite"
-  relationMode = "foreignKeys"
-  url          = "file:../data/me.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // All ids are ULIDs

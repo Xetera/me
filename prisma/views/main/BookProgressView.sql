@@ -4,4 +4,4 @@ FROM (
         ROW_NUMBER() OVER (PARTITION BY book_id ORDER BY sync_date DESC, progress DESC) AS rn
   FROM book_progress
 ) bp
-WHERE bp.rn = 1;`
+WHERE bp.rn = 1;
