@@ -1,6 +1,6 @@
 import { Kindle } from "kindle-api";
 import { setTimeout as sleep } from "timers/promises";
-import { KindleAuthor } from "kindle-api/dist/book";
+import type { KindleAuthor } from "kindle-api/dist/book";
 
 const FETCHING_DELAY = 200;
 export async function* iterBooks(client: Kindle) {

@@ -1,8 +1,6 @@
-import * as url from "url";
-import path from "path";
 import { providers } from "@providers/index.js";
 import { GraphQLDateTime } from "graphql-scalars";
-import { ImageSize, LikedSong, Song } from "@providers/spotify/model.js";
+import { LikedSong } from "@providers/spotify/model.js";
 import { Book } from "@providers/kindle/model.js";
 import { TV } from "@providers/simkl/model.js";
 import { builder } from "./graphql/builder.js";

@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from "fastify";
+import type { FastifyInstance, FastifyRequest } from "fastify";
 import qs from "node:querystring";
 import type { Context } from "@providers/index.js";
 
@@ -8,6 +8,18 @@ const SIMKL_ERROR =
 export function simklRoutes(server: FastifyInstance, ctx: Readonly<Context>) {
   server.get(
     "/simkl/login",
+    {
+      schema: {
+        querystring: {
+          type: "object",
+          properties: {
+            client_id: { type: "string" },
+            redirect_uri: { type: "string" },
+          },
+          required: ["client_id", "redirect_uri"],
+        },
+      },
+    },
     (
       request: FastifyRequest<{
         Querystring: { client_id: string; redirect_uri: string };
@@ -30,8 +42,20 @@ export function simklRoutes(server: FastifyInstance, ctx: Readonly<Context>) {
 
   server.get(
     "/simkl/callback",
+    {
+      schema: {
+        querystring: {
+          type: "object",
+          properties: {
+            code: { type: "string" },
+            state: { type: "string" },
+          },
+          required: ["code"],
+        },
+      },
+    },
     async (
-      request: FastifyRequest<{ Querystring: { code: string } }>,
+      request: FastifyRequest<{ Querystring: { code: string; state: string } }>,
       reply
     ) => {
       const code = request.query.code;

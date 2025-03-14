@@ -1,4 +1,4 @@
-import { Context, providers } from "@providers/index.js";
+import { type Context, providers } from "@providers/index.js";
 import { startJobs } from "./cron-job.js";
 import { readConfig } from "./config.js";
 import { startServer } from "./server.js";
@@ -10,7 +10,7 @@ async function main(configPath: string) {
   const ctx: Readonly<Context> = { prisma, config };
 
   const jobs = startJobs(ctx, providers);
-  await startServer(ctx, jobs);
+  startServer(ctx, jobs);
 }
 
 main(process.env.CONFIG_PATH ?? "./config.toml");

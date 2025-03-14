@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { Prisma, Book, BookProgress, Song, SimklActivity, Request, SimklShow, BookProgressView } from "/Users/xetera/me-ts/node_modules/.pnpm/@prisma+client@5.16.1_prisma@5.16.1/node_modules/@prisma/client";
+import type { Prisma, Book, BookProgress, Song, SimklActivity, Request, SimklShow, BookProgressView } from "/Users/xetera/me-ts/node_modules/.pnpm/@prisma+client@6.4.1_prisma@6.4.1_typescript@5.8.2__typescript@5.8.2/node_modules/@prisma/client";
 export default interface PrismaTypes {
     Book: {
         Name: "Book";

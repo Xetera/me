@@ -1,4 +1,4 @@
-import { Context } from "@/graphql/graphql-context";
+import type { Context } from "@/graphql/graphql-context";
 import { z } from "zod";
 import qs from "node:querystring";
 import { URL } from "node:url";

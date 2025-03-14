@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { convertUrl, SpotifyUrl } from "./api.js";
-import { Song as DbSong } from "@prisma/client";
+import type { Song as DbSong } from "@prisma/client";
 import { builder } from "@/graphql/builder.js";
 
 export const SpotifyConfig = z.object({

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Book as PrismaBook } from "@prisma/client";
+import type { Book as PrismaBook } from "@prisma/client";
 import { builder } from "@/graphql/builder.js";
 import { sanitizeDeviceName } from "./kindle-provider.js";
 

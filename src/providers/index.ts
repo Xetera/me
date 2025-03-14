@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Config } from "@/config.js";
-import { CronExpression } from "@/cron-job.js";
+import type { CronExpression } from "@/cron-job.js";
 import kindleProvider from "@providers/kindle/kindle-provider.js";
 import spotifyLikedProvider from "@providers/spotify/spotify-provider.js";
 import simklProvider from "@providers/simkl/simkl-provider.js";
