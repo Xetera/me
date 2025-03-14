@@ -4,5 +4,5 @@ metadata:
   name: me
   namespace: flux-system
 spec:
-  image: ghcr.io/xetera/me
+  image: ghcr.io/xetera/me:latest
   interval: 10m0s

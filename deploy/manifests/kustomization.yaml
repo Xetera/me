@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: default
 resources:
   - ./deployment.yaml
-  - ./imagerepository.yaml
+  # - ./imagerepository.yaml
+  # - ./imagepolicy.yaml
   - ./secret.yaml
   - ./service.yaml
   - ./ingressroute.yaml
   - ./podmonitor.yaml
-  - ./db/kustomization.yaml
