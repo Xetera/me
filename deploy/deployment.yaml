@@ -13,9 +13,13 @@ spec:
     spec:
       initContainers:
         - name: me-migrate
-          image: xetera/me:latest
-          imagePullPolicy: IfNotPresent
-          command: ["npx", "prisma", "migrate", "deploy"]
+          image: ghcr.io/xetera/me:latest
+          imagePullPolicy: Always
+          command:
+            - npx
+            - prisma
+            - migrate
+            - deploy
           env:
             - name: DATABASE_URL
               valueFrom:
@@ -24,7 +28,7 @@ spec:
                   key: DATABASE_URL
       containers:
         - name: me
-          image: xetera/me:latest
+          image: ghcr.io/xetera/me:latest
           imagePullPolicy: Always
           resources:
             limits:
