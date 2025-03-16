@@ -1,10 +1,7 @@
 node_modules
 .idea
 .vscode
-.dokku
 dist
 .git
 .env
 config*.toml
-Procfile
-data/*.db
