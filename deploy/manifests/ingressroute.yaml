@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`k8s-me.xetera.dev`)
+    - match: Host(`me.xetera.dev`)
       priority: 10
       services:
         - name: me
