@@ -5,3 +5,4 @@ dist
 .idea
 .env
 data/*.db
+.DS_Store

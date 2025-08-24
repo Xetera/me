@@ -52,3 +52,6 @@ spec:
         - name: me-config
           secret:
             secretName: me-config
+            items:
+              - key: config.toml
+                path: config.toml
